@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  PXNewsItemCell.h
 //  News
 //
 //  Created by Futu on 2018/8/3.
@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface ViewController : UIViewController
-
-
+@class PXNewsItem;
+@interface PXNewsItemCell : UITableViewCell
+@property (strong, nonatomic) PXNewsItem *item;
 @end
-

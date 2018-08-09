@@ -1,0 +1,29 @@
+//
+//  PrefixHeader.pch
+//  News
+//
+//  Created by Futu on 2018/8/3.
+//  Copyright © 2018年 Futu. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#import "UIView+Frame.h"
+#import "NSDate+Helper.h"
+#import "PXNewsItem.h"
+
+#define PXDocumentDirectory NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0]
+#define PXScreenWith (NSUInteger)[UIScreen mainScreen].bounds.size.width
+#define PXScreenHeight (NSUInteger)[UIScreen mainScreen].bounds.size.height
+
+#define PXRGB(R,G,B) [UIColor colorWithRed:(R) / 255.0 green:(G) / 255.0 blue:(B) / 255.0 alpha:1]
+#define PXRGBA(R,G,B,A) [UIColor colorWithRed:(R) / 255.0 green:(G) / 255.0 blue:(B) / 255.0 alpha:A]
+#define PXRandomColor PXColor(arc4random_uniform(255), arc4random_uniform(255), arc4random_uniform(255))
+#define PXGrey(D) PXRGB(D,D,D)
+#define PXHEXColor(hex) [UIColor colorWithRed:((hex & 0xFF0000) >> 16)/255.0 green:((hex & 0xFF00) >> 8)/255.0 blue:(hex & 0xFF)/255.0 alpha:1]
+
+
+#define PXSystemFont(size) [UIFont systemFontOfSize:size]
+
+#endif /* PrefixHeader_pch */
