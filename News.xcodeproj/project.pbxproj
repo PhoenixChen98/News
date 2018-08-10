@@ -22,8 +22,9 @@
 		C1F72BED211ADF7E0088B363 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F72BEC211ADF7E0088B363 /* NSDate+Helper.m */; };
 		C1F72BF0211B0C260088B363 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F72BEE211B0C260088B363 /* UIView+Frame.m */; };
 		C1F72BF6211B1FFF0088B363 /* PXIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F72BF5211B1FFF0088B363 /* PXIndicatorView.m */; };
-		C1F72BF9211B200A0088B363 /* PXComponentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F72BF8211B200A0088B363 /* PXComponentView.m */; };
+		C1F72BF9211B200A0088B363 /* PXDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F72BF8211B200A0088B363 /* PXDayView.m */; };
 		C1F72BFD211C1C630088B363 /* PXTitleBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F72BFB211C1C630088B363 /* PXTitleBar.m */; };
+		C1F72C28211DBF470088B363 /* PXWebImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F72C27211DBF470088B363 /* PXWebImageManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,10 +56,12 @@
 		C1F72BEF211B0C260088B363 /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
 		C1F72BF4211B1FFF0088B363 /* PXIndicatorView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PXIndicatorView.h; sourceTree = "<group>"; };
 		C1F72BF5211B1FFF0088B363 /* PXIndicatorView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PXIndicatorView.m; sourceTree = "<group>"; };
-		C1F72BF7211B200A0088B363 /* PXComponentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PXComponentView.h; sourceTree = "<group>"; };
-		C1F72BF8211B200A0088B363 /* PXComponentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PXComponentView.m; sourceTree = "<group>"; };
+		C1F72BF7211B200A0088B363 /* PXDayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PXDayView.h; sourceTree = "<group>"; };
+		C1F72BF8211B200A0088B363 /* PXDayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PXDayView.m; sourceTree = "<group>"; };
 		C1F72BFB211C1C630088B363 /* PXTitleBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXTitleBar.m; sourceTree = "<group>"; };
 		C1F72BFC211C1C630088B363 /* PXTitleBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXTitleBar.h; sourceTree = "<group>"; };
+		C1F72C26211DBF470088B363 /* PXWebImageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PXWebImageManager.h; sourceTree = "<group>"; };
+		C1F72C27211DBF470088B363 /* PXWebImageManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PXWebImageManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +80,7 @@
 			children = (
 				C166DC8E2117F15D009C2C66 /* UIImageView+WebImage.h */,
 				C166DC8F2117F15D009C2C66 /* UIImageView+WebImage.m */,
+				C1F72C25211DBEBA0088B363 /* PXWebImage */,
 				C1F72BEB211ADF7E0088B363 /* NSDate+Helper.h */,
 				C1F72BEC211ADF7E0088B363 /* NSDate+Helper.m */,
 				C1F72BEF211B0C260088B363 /* UIView+Frame.h */,
@@ -185,6 +189,8 @@
 		C1D485472113F944002E6B3D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C1F72BE8211AD70E0088B363 /* PXCalendarView.h */,
+				C1F72BE9211AD70E0088B363 /* PXCalendarView.m */,
 				C1F72BFE211C312B0088B363 /* PXCalendarView */,
 				C1D485552114444F002E6B3D /* PXFilterView.h */,
 				C1D485562114444F002E6B3D /* PXFilterView.m */,
@@ -258,16 +264,23 @@
 		C1F72BFE211C312B0088B363 /* PXCalendarView */ = {
 			isa = PBXGroup;
 			children = (
-				C1F72BE8211AD70E0088B363 /* PXCalendarView.h */,
-				C1F72BE9211AD70E0088B363 /* PXCalendarView.m */,
 				C1F72BFC211C1C630088B363 /* PXTitleBar.h */,
 				C1F72BFB211C1C630088B363 /* PXTitleBar.m */,
 				C1F72BF4211B1FFF0088B363 /* PXIndicatorView.h */,
 				C1F72BF5211B1FFF0088B363 /* PXIndicatorView.m */,
-				C1F72BF7211B200A0088B363 /* PXComponentView.h */,
-				C1F72BF8211B200A0088B363 /* PXComponentView.m */,
+				C1F72BF7211B200A0088B363 /* PXDayView.h */,
+				C1F72BF8211B200A0088B363 /* PXDayView.m */,
 			);
 			path = PXCalendarView;
+			sourceTree = "<group>";
+		};
+		C1F72C25211DBEBA0088B363 /* PXWebImage */ = {
+			isa = PBXGroup;
+			children = (
+				C1F72C26211DBF470088B363 /* PXWebImageManager.h */,
+				C1F72C27211DBF470088B363 /* PXWebImageManager.m */,
+			);
+			path = PXWebImage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -343,6 +356,7 @@
 				C1F72BF6211B1FFF0088B363 /* PXIndicatorView.m in Sources */,
 				C1D485412113F87D002E6B3D /* AppDelegate.m in Sources */,
 				C1D485402113F87D002E6B3D /* main.m in Sources */,
+				C1F72C28211DBF470088B363 /* PXWebImageManager.m in Sources */,
 				C1D485512113FB37002E6B3D /* PXMainViewController.m in Sources */,
 				C1D4855C21144B1B002E6B3D /* PXNewsItemCell.m in Sources */,
 				C166DC902117F15D009C2C66 /* UIImageView+WebImage.m in Sources */,
@@ -352,7 +366,7 @@
 				C1D485542113FF19002E6B3D /* PXNewsItem.m in Sources */,
 				C1F72BFD211C1C630088B363 /* PXTitleBar.m in Sources */,
 				C1F72BEA211AD70E0088B363 /* PXCalendarView.m in Sources */,
-				C1F72BF9211B200A0088B363 /* PXComponentView.m in Sources */,
+				C1F72BF9211B200A0088B363 /* PXDayView.m in Sources */,
 				C1F72BF0211B0C260088B363 /* UIView+Frame.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

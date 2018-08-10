@@ -40,7 +40,12 @@
 - (NSUInteger)daysInMonth {
 	return [[NSCalendar currentCalendar] rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:self].length;
 }
-- (NSUInteger)firstWeekdayInMonth {
+- (NSDate *)firstDayInMonth {
+	NSDateComponents *comps = [self components];
+	comps.day = 1;
+	return [NSDate dateFromComponents:comps];
+}
+- (NSUInteger)dayNumberInWeek {
 	return [[NSCalendar currentCalendar] component:NSCalendarUnitWeekday fromDate:self];
 }
 - (BOOL)isEarlierToDate:(NSDate *)date {
