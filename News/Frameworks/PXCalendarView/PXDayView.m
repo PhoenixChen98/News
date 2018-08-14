@@ -53,9 +53,6 @@
 			[UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0 options:kNilOptions animations:^{
 				self.indicatorView.transform = CGAffineTransformIdentity;
 			} completion:^(BOOL finished){
-				if (!finished) {
-					NSLog(@"%d",finished);
-				}
 				self.userInteractionEnabled = YES;
 				self.indicatorView.hidden = NO;
 			}];
@@ -72,12 +69,9 @@
 			if (animated) {
 				self.userInteractionEnabled = NO;
 				self.indicatorView.transform = CGAffineTransformIdentity;
-				[UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0 options:kNilOptions animations:^{
-					self.indicatorView.transform = CGAffineTransformMakeScale(0, 0);
+				[UIView animateWithDuration:0.1 animations:^{
+					self.indicatorView.transform = CGAffineTransformMakeScale(0.1, 0.1);
 				} completion:^(BOOL finished) {
-					if (!finished) {
-						NSLog(@"%d",finished);
-					}
 					self.userInteractionEnabled = YES;
 					self.indicatorView.hidden = YES;
 				}];
@@ -92,11 +86,11 @@
 }
 - (void)setTextColor:(UIColor *)textColor {
 	_textColor = textColor;
-//	self.selected = self.selected;
+	self.selected = self.selected;//立即应用设定
 }
 - (void)setTodayColor:(UIColor *)todayColor {
 	_todayColor = todayColor;
-//	self.selected = self.selected;
+	self.selected = self.selected;//立即应用设定
 }
 - (void)setBold:(BOOL)bold {
 	_bold = bold;
@@ -107,7 +101,7 @@
 		self.textLabel.font = [UIFont systemFontOfSize:16];
 		self.textLabel.alpha = 0.5;
 	}
-//	self.selected = self.selected;
+	self.selected = self.selected;//立即应用设定
 }
 - (void)setDate:(NSDate *)date {
 	_date = date;

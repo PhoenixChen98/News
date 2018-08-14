@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 @class PXNewsItem;
 @interface PXNewsItemCell : UITableViewCell
+/** 用于内容展示 */
 @property (strong, nonatomic) PXNewsItem *item;
 @end

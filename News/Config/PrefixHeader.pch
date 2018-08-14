@@ -9,7 +9,7 @@
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
 
-#import "UIView+Frame.h"
+#import "UIView+PXFrame.h"
 #import "NSDate+Helper.h"
 #import "PXNewsItem.h"
 

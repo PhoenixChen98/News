@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		C166DC902117F15D009C2C66 /* UIImageView+WebImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C166DC8F2117F15D009C2C66 /* UIImageView+WebImage.m */; };
+		C171799C212126F000A82FF4 /* UIScrollView+PXRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = C171799B212126F000A82FF4 /* UIScrollView+PXRefresh.m */; };
+		C171799F2121275100A82FF4 /* PXRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = C171799E2121275100A82FF4 /* PXRefreshHeader.m */; };
 		C1D4853E2113F87D002E6B3D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1D485352113F87D002E6B3D /* Assets.xcassets */; };
 		C1D4853F2113F87D002E6B3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1D485392113F87D002E6B3D /* LaunchScreen.storyboard */; };
 		C1D485402113F87D002E6B3D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C1D4853B2113F87D002E6B3D /* main.m */; };
@@ -17,10 +19,9 @@
 		C1D485542113FF19002E6B3D /* PXNewsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C1D485532113FF19002E6B3D /* PXNewsItem.m */; };
 		C1D485572114444F002E6B3D /* PXFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1D485562114444F002E6B3D /* PXFilterView.m */; };
 		C1D4855C21144B1B002E6B3D /* PXNewsItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C1D4855B21144B1B002E6B3D /* PXNewsItemCell.m */; };
-		C1F72BE72119364C0088B363 /* PXDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F72BE62119364C0088B363 /* PXDetailViewController.m */; };
 		C1F72BEA211AD70E0088B363 /* PXCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F72BE9211AD70E0088B363 /* PXCalendarView.m */; };
 		C1F72BED211ADF7E0088B363 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F72BEC211ADF7E0088B363 /* NSDate+Helper.m */; };
-		C1F72BF0211B0C260088B363 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F72BEE211B0C260088B363 /* UIView+Frame.m */; };
+		C1F72BF0211B0C260088B363 /* UIView+PXFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F72BEE211B0C260088B363 /* UIView+PXFrame.m */; };
 		C1F72BF6211B1FFF0088B363 /* PXIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F72BF5211B1FFF0088B363 /* PXIndicatorView.m */; };
 		C1F72BF9211B200A0088B363 /* PXDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F72BF8211B200A0088B363 /* PXDayView.m */; };
 		C1F72BFD211C1C630088B363 /* PXTitleBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F72BFB211C1C630088B363 /* PXTitleBar.m */; };
@@ -30,6 +31,11 @@
 /* Begin PBXFileReference section */
 		C166DC8E2117F15D009C2C66 /* UIImageView+WebImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+WebImage.h"; sourceTree = "<group>"; };
 		C166DC8F2117F15D009C2C66 /* UIImageView+WebImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebImage.m"; sourceTree = "<group>"; };
+		C171799A212126F000A82FF4 /* UIScrollView+PXRefresh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+PXRefresh.h"; sourceTree = "<group>"; };
+		C171799B212126F000A82FF4 /* UIScrollView+PXRefresh.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+PXRefresh.m"; sourceTree = "<group>"; };
+		C171799D2121275100A82FF4 /* PXRefreshHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PXRefreshHeader.h; sourceTree = "<group>"; };
+		C171799E2121275100A82FF4 /* PXRefreshHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PXRefreshHeader.m; sourceTree = "<group>"; };
+		C17179A62121B3FB00A82FF4 /* PXRefresh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PXRefresh.h; sourceTree = "<group>"; };
 		C1D4851B2113F712002E6B3D /* News.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = News.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1D485352113F87D002E6B3D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C1D485382113F87D002E6B3D /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -46,14 +52,12 @@
 		C1D4855A21144B1B002E6B3D /* PXNewsItemCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PXNewsItemCell.h; sourceTree = "<group>"; };
 		C1D4855B21144B1B002E6B3D /* PXNewsItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PXNewsItemCell.m; sourceTree = "<group>"; };
 		C1D4855E211452D6002E6B3D /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
-		C1F72BE52119364C0088B363 /* PXDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PXDetailViewController.h; sourceTree = "<group>"; };
-		C1F72BE62119364C0088B363 /* PXDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PXDetailViewController.m; sourceTree = "<group>"; };
 		C1F72BE8211AD70E0088B363 /* PXCalendarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PXCalendarView.h; sourceTree = "<group>"; };
 		C1F72BE9211AD70E0088B363 /* PXCalendarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PXCalendarView.m; sourceTree = "<group>"; };
 		C1F72BEB211ADF7E0088B363 /* NSDate+Helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helper.h"; sourceTree = "<group>"; };
 		C1F72BEC211ADF7E0088B363 /* NSDate+Helper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helper.m"; sourceTree = "<group>"; };
-		C1F72BEE211B0C260088B363 /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
-		C1F72BEF211B0C260088B363 /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
+		C1F72BEE211B0C260088B363 /* UIView+PXFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+PXFrame.m"; sourceTree = "<group>"; };
+		C1F72BEF211B0C260088B363 /* UIView+PXFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+PXFrame.h"; sourceTree = "<group>"; };
 		C1F72BF4211B1FFF0088B363 /* PXIndicatorView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PXIndicatorView.h; sourceTree = "<group>"; };
 		C1F72BF5211B1FFF0088B363 /* PXIndicatorView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PXIndicatorView.m; sourceTree = "<group>"; };
 		C1F72BF7211B200A0088B363 /* PXDayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PXDayView.h; sourceTree = "<group>"; };
@@ -78,15 +82,34 @@
 		C166DC8D2117F033009C2C66 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				C166DC8E2117F15D009C2C66 /* UIImageView+WebImage.h */,
-				C166DC8F2117F15D009C2C66 /* UIImageView+WebImage.m */,
-				C1F72C25211DBEBA0088B363 /* PXWebImage */,
 				C1F72BEB211ADF7E0088B363 /* NSDate+Helper.h */,
 				C1F72BEC211ADF7E0088B363 /* NSDate+Helper.m */,
-				C1F72BEF211B0C260088B363 /* UIView+Frame.h */,
-				C1F72BEE211B0C260088B363 /* UIView+Frame.m */,
+				C1F72BEF211B0C260088B363 /* UIView+PXFrame.h */,
+				C1F72BEE211B0C260088B363 /* UIView+PXFrame.m */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		C1717995212125E700A82FF4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C17179962121262300A82FF4 /* PXRefresh */,
+				C1F72C25211DBEBA0088B363 /* PXWebImage */,
+				C1F72BFE211C312B0088B363 /* PXCalendarView */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		C17179962121262300A82FF4 /* PXRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				C17179A62121B3FB00A82FF4 /* PXRefresh.h */,
+				C171799A212126F000A82FF4 /* UIScrollView+PXRefresh.h */,
+				C171799B212126F000A82FF4 /* UIScrollView+PXRefresh.m */,
+				C171799D2121275100A82FF4 /* PXRefreshHeader.h */,
+				C171799E2121275100A82FF4 /* PXRefreshHeader.m */,
+			);
+			path = PXRefresh;
 			sourceTree = "<group>";
 		};
 		C1D485122113F712002E6B3D = {
@@ -110,6 +133,7 @@
 			children = (
 				C1D485362113F87D002E6B3D /* Features */,
 				C166DC8D2117F033009C2C66 /* Categories */,
+				C1717995212125E700A82FF4 /* Frameworks */,
 				C1D4855D211452C0002E6B3D /* Config */,
 				C1D485342113F87D002E6B3D /* Resources */,
 				C1D485372113F87D002E6B3D /* APPEntry */,
@@ -130,7 +154,6 @@
 			children = (
 				C1D485432113F8D2002E6B3D /* Base */,
 				C1D485442113F8F9002E6B3D /* Main */,
-				C1D485452113F903002E6B3D /* Detail */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -167,16 +190,6 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
-		C1D485452113F903002E6B3D /* Detail */ = {
-			isa = PBXGroup;
-			children = (
-				C1D4854C2113F997002E6B3D /* Controller */,
-				C1D4854D2113F997002E6B3D /* Model */,
-				C1D4854E2113F997002E6B3D /* View */,
-			);
-			path = Detail;
-			sourceTree = "<group>";
-		};
 		C1D485462113F935002E6B3D /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,9 +202,6 @@
 		C1D485472113F944002E6B3D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C1F72BE8211AD70E0088B363 /* PXCalendarView.h */,
-				C1F72BE9211AD70E0088B363 /* PXCalendarView.m */,
-				C1F72BFE211C312B0088B363 /* PXCalendarView */,
 				C1D485552114444F002E6B3D /* PXFilterView.h */,
 				C1D485562114444F002E6B3D /* PXFilterView.m */,
 				C1D4855A21144B1B002E6B3D /* PXNewsItemCell.h */,
@@ -230,29 +240,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		C1D4854C2113F997002E6B3D /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				C1F72BE52119364C0088B363 /* PXDetailViewController.h */,
-				C1F72BE62119364C0088B363 /* PXDetailViewController.m */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		C1D4854D2113F997002E6B3D /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		C1D4854E2113F997002E6B3D /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		C1D4855D211452C0002E6B3D /* Config */ = {
 			isa = PBXGroup;
 			children = (
@@ -264,6 +251,8 @@
 		C1F72BFE211C312B0088B363 /* PXCalendarView */ = {
 			isa = PBXGroup;
 			children = (
+				C1F72BE8211AD70E0088B363 /* PXCalendarView.h */,
+				C1F72BE9211AD70E0088B363 /* PXCalendarView.m */,
 				C1F72BFC211C1C630088B363 /* PXTitleBar.h */,
 				C1F72BFB211C1C630088B363 /* PXTitleBar.m */,
 				C1F72BF4211B1FFF0088B363 /* PXIndicatorView.h */,
@@ -279,6 +268,8 @@
 			children = (
 				C1F72C26211DBF470088B363 /* PXWebImageManager.h */,
 				C1F72C27211DBF470088B363 /* PXWebImageManager.m */,
+				C166DC8E2117F15D009C2C66 /* UIImageView+WebImage.h */,
+				C166DC8F2117F15D009C2C66 /* UIImageView+WebImage.m */,
 			);
 			path = PXWebImage;
 			sourceTree = "<group>";
@@ -355,19 +346,20 @@
 			files = (
 				C1F72BF6211B1FFF0088B363 /* PXIndicatorView.m in Sources */,
 				C1D485412113F87D002E6B3D /* AppDelegate.m in Sources */,
+				C171799F2121275100A82FF4 /* PXRefreshHeader.m in Sources */,
 				C1D485402113F87D002E6B3D /* main.m in Sources */,
 				C1F72C28211DBF470088B363 /* PXWebImageManager.m in Sources */,
 				C1D485512113FB37002E6B3D /* PXMainViewController.m in Sources */,
+				C171799C212126F000A82FF4 /* UIScrollView+PXRefresh.m in Sources */,
 				C1D4855C21144B1B002E6B3D /* PXNewsItemCell.m in Sources */,
 				C166DC902117F15D009C2C66 /* UIImageView+WebImage.m in Sources */,
-				C1F72BE72119364C0088B363 /* PXDetailViewController.m in Sources */,
 				C1F72BED211ADF7E0088B363 /* NSDate+Helper.m in Sources */,
 				C1D485572114444F002E6B3D /* PXFilterView.m in Sources */,
 				C1D485542113FF19002E6B3D /* PXNewsItem.m in Sources */,
 				C1F72BFD211C1C630088B363 /* PXTitleBar.m in Sources */,
 				C1F72BEA211AD70E0088B363 /* PXCalendarView.m in Sources */,
 				C1F72BF9211B200A0088B363 /* PXDayView.m in Sources */,
-				C1F72BF0211B0C260088B363 /* UIView+Frame.m in Sources */,
+				C1F72BF0211B0C260088B363 /* UIView+PXFrame.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

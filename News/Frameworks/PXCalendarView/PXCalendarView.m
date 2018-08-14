@@ -45,19 +45,17 @@
 	self.titleBar.frame = CGRectMake(0, 0, self.PX_width, 40);
 	self.weekHeaderView.frame = CGRectMake(0, self.titleBar.PX_bottom, self.PX_width, 20);
 	self.contentWrapperView.frame = CGRectMake(0, self.weekHeaderView.PX_bottom, self.PX_width, self.PX_height - self.weekHeaderView.PX_bottom);
-	self.contentView.frame = self.contentWrapperView.bounds;
-	self.contentView.PX_width = self.contentWrapperView.PX_width * 3;
+	self.contentView.frame = CGRectMake(0, 0, self.contentWrapperView.PX_width * 3, self.contentWrapperView.PX_height);
 	self.contentWrapperView.contentSize = CGSizeMake(self.contentView.PX_width, 0);
 	self.contentWrapperView.contentOffset = CGPointMake(self.contentWrapperView.PX_width, 0);
 }
 
 - (void)commonInit {
-	self.localizedStringsOfWeekday = @[@"周日", @"周一", @"周二", @"周三", @"周四", @"周五", @"周六"];
+	self.stringsOfWeekday = @[@"周日", @"周一", @"周二", @"周三", @"周四", @"周五", @"周六"];
 	self.visibleDate = [NSDate date];
-	
-	// Initialize default appearance settings.
+
 	self.weekdayHeaderTextColor = [UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1];
-	self.weekdayHeaderWeekendTextColor = [UIColor colorWithRed:0.75 green:0.25 blue:0.25 alpha:1];
+	self.weekendHeaderTextColor = [UIColor colorWithRed:0.75 green:0.25 blue:0.25 alpha:1];
 	self.componentTextColor = [UIColor blackColor];
 	self.highlightedComponentTextColor = [UIColor whiteColor];
 	self.selectedIndicatorColor = [UIColor colorWithRed:0.74 green:0.18 blue:0.06 alpha:1];
@@ -68,10 +66,10 @@
 	self.titleBar = [[PXTitleBar alloc] init];
 	self.titleBar.title = self.navigationBarTitle;
 	self.titleBar.lastMonth = ^{
-		[weakSelf jumpToMonth:[weakSelf.visibleDate lastMonth]];
+		[weakSelf scrollToLastMonth];
 	};
 	self.titleBar.nextMonth = ^{
-		[weakSelf jumpToMonth:[weakSelf.visibleDate nextMonth]];
+		[weakSelf scrollToNextMonth];
 	};
 	
 	[self addSubview:self.titleBar];
@@ -101,7 +99,7 @@
 	self.dayViews = [NSMutableArray array];
 	[self setupView];
 	[self configureWeekdayHeaderView];
-	[self configureContentView:NO];
+	[self configureContentViewAnimated:NO];
 	
 //	[self reloadViewAnimated:NO];
 }
@@ -146,16 +144,15 @@
 		UILabel *weekdayLabel = (id) obj;
 		weekdayLabel.textAlignment = NSTextAlignmentCenter;
 		weekdayLabel.font = [UIFont systemFontOfSize:12];
-		weekdayLabel.textColor = (idx == 0 || idx == 6) ? self.weekdayHeaderWeekendTextColor : self.weekdayHeaderTextColor;
-		
-		weekdayLabel.text = self.localizedStringsOfWeekday[idx];
+		weekdayLabel.textColor = (idx == 0 || idx == 6) ? self.weekendHeaderTextColor : self.weekdayHeaderTextColor;
+		weekdayLabel.text = self.stringsOfWeekday[idx];
 		
 	}];
 }
 
 
 
-- (void)configureContentView:(BOOL)animated {
+- (void)configureContentViewAnimated:(BOOL)animated {
 	[self configureMonth:[self.visibleDate lastMonth] index:0 animated:animated];
 	[self configureMonth:self.visibleDate index:1 animated:animated];
 	[self configureMonth:[self.visibleDate nextMonth] index:2 animated:animated];
@@ -210,14 +207,11 @@
 
 - (void)setDate:(NSDate *)date {
 	_date = date;
-	int64_t delayTime = 0;
 	if (![self.visibleDate isSameMonth:date]) {
-		[self jumpToMonth:date];
-		delayTime = 400;
+		[self displayMonth:date];
 	}
-	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayTime * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^{
-		[self dayDidTap:[self componentViewForDate:date]];
-	});
+	[self dayDidTap:[self componentViewForDate:date]];
+	
 }
 - (PXDayView *)componentViewForDate:(NSDate *)date {
 	__block PXDayView *view = nil;
@@ -239,34 +233,56 @@
 
 - (void)dayDidTap:(PXDayView *)sender {
 	NSDate *date = sender.date;
+	_date = date;
 	if (![self.visibleDate isSameMonth:date]) {
-		[self jumpToMonth:date];
+		[self configureContentViewAnimated:NO];
+		if ([self.visibleDate isEarlierToDate:date]) {
+			[self scrollToNextMonth];
+		} else {
+			[self scrollToLastMonth];
+		}
 		return;
 	}
-
-	_date = date;
-	[self configureContentView:YES];
-//	lastTap = sender;
+	[self configureContentViewAnimated:YES];
 }
-- (void)jumpToMonth:(NSDate *)date {
-	BOOL direction;//yes往后,no往前
-	direction = [date isLaterToDate:self.visibleDate];
+- (void)scrollToNextMonth {
+	__weak typeof (self) weakSelf = self;
+	[UIView animateWithDuration:0.25 animations:^{
+		weakSelf.contentWrapperView.contentOffset = CGPointMake(self.contentWrapperView.PX_width * 2, 0);
+	} completion:^(BOOL finished) {
+		[weakSelf resetWrapperView];
+	}];
+}
+
+- (void)scrollToLastMonth {
+	__weak typeof (self) weakSelf = self;
+	[UIView animateWithDuration:0.25 animations:^{
+		weakSelf.contentWrapperView.contentOffset = CGPointMake(0, 0);
+	} completion:^(BOOL finished) {
+		[weakSelf resetWrapperView];
+	}];
+}
+
+- (void)resetWrapperView {
+	NSUInteger index = (int)(self.contentWrapperView.contentOffset.x / self.contentWrapperView.PX_width);
+	if (index == 0) {
+		[self displayMonth:[self.visibleDate lastMonth]];
+	} else if (index == 2) {
+		[self displayMonth:[self.visibleDate nextMonth]];
+	}
+	self.contentWrapperView.contentOffset = CGPointMake(self.contentWrapperView.PX_width, 0);
+}
+
+- (void)displayMonth:(NSDate *)date {
 	self.visibleDate = date;
 	self.titleBar.title = self.navigationBarTitle;
-	[self configureContentView:NO];
+	[self configureContentViewAnimated:NO];
 }
 
 #pragma mark - uiscrollview delegate
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-	
-	NSUInteger index = (int)(scrollView.contentOffset.x / scrollView.PX_width);
-	if (index == 0) {
-		[self jumpToMonth:[self.visibleDate lastMonth]];
-	} else if (index == 2) {
-		[self jumpToMonth:[self.visibleDate nextMonth]];
-	}
-	scrollView.contentOffset = CGPointMake(scrollView.PX_width, 0);
+	[self resetWrapperView];
 }
 @end
 

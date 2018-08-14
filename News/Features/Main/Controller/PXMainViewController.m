@@ -9,11 +9,11 @@
 #import "PXMainViewController.h"
 #import "PXNewsItemCell.h"
 #import "PXFilterView.h"
-#import "PXDetailViewController.h"
 #import <SafariServices/SafariServices.h>
 #import "PXCalendarView.h"
+#import "PXRefresh.h"
 NSString * const requestUrl = @"https://120.76.205.241/news/baidu?apikey=qI9UW0gCBOdRSyUVjLo1tyHDZe4rwjHYs0tngCXcGQpkc6hT9X7usZq0tTYhUtDn&page=4";
-CGFloat TopRefreshViewHeight = 80;
+CGFloat RefreshViewHeight = 80;
 
 @interface PXMainViewController ()<NSURLSessionDelegate, SFSafariViewControllerDelegate>
 @property (strong, nonatomic) NSMutableArray<PXNewsItem *> *newsItems;
@@ -33,104 +33,25 @@ CGFloat TopRefreshViewHeight = 80;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"热点新闻";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(scrollsTopRefresh)];
-    
-    
+	
+	
     self.tableView.tableHeaderView = self.filterView;
     self.tableView.rowHeight = 60;
 	self.tableView.showsHorizontalScrollIndicator = NO;
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [self.tableView registerClass:[PXNewsItemCell class] forCellReuseIdentifier:NSStringFromClass([PXNewsItemCell class])];
-	_topInset = self.tableView.contentOffset.y;
-	self.refreshing = NO;
-	self.willRefreshing = NO;
-	
-	[self setupTopRefreshView]; //没有占用tableHeaderView
-	[self topBeginRefresh];
-}
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-//    [self fetchNews];
-	
-	
-}
-
-#pragma mark - refresh
-- (void)setupTopRefreshView {
-	UIView *top = [[UIView alloc] initWithFrame:CGRectMake(0, -TopRefreshViewHeight, self.tableView.PX_width, TopRefreshViewHeight)];
-	
-	UILabel *topLabel = [[UILabel alloc] initWithFrame:top.bounds];
-	topLabel.textColor = PXRandomColor;
-	topLabel.textAlignment = NSTextAlignmentCenter;
-	topLabel.text = @"下滑刷新";
-	_topRefreshLabel = topLabel;
-	[top addSubview:topLabel];
-	[self.tableView addSubview:top];
-}
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//	NSLog(@"%f",scrollView.contentOffset.y);
-	[self dealTopRefresh];
-}
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-//	NSLog(@"%f",scrollView.contentOffset.y);
-	if (self.isRefreshing)
-		return;
-	if (scrollView.contentOffset.y <= -88  - TopRefreshViewHeight) {
-		[self topBeginRefresh];
-	}
-}
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-//	NSLog(@"%f",scrollView.contentOffset.y);
-}
-- (void)dealTopRefresh {
-	if (self.isRefreshing)
-		return;
-	if (self.isWillRefreshing) {
-		if (self.tableView.contentOffset.y <= -88  - TopRefreshViewHeight) {
-			self.willRefreshing = NO;
-			[self topBeginRefresh];
-			return;
-		}
-	}
-	if (self.tableView.contentOffset.y <= -88  - TopRefreshViewHeight) {
-		_topRefreshLabel.text = @"松开立即刷新";
-	} else {
-		_topRefreshLabel.text = @"下滑刷新";
-	}
-}
-- (void)scrollsTopRefresh {
-	if (self.isRefreshing)
-		return;
-	self.willRefreshing = YES;
-	CGPoint offset = CGPointMake(self.tableView.contentOffset.x, -88 - TopRefreshViewHeight);
-	[self.tableView setContentOffset:offset animated:YES];
-}
-- (void)topBeginRefresh {
-	if (self.isRefreshing)
-		return;
-	self.refreshing = YES;
-	UIEdgeInsets inset = self.tableView.contentInset;
-	inset.top += TopRefreshViewHeight;
-	self.tableView.contentInset = inset;
-	_topRefreshLabel.text = @"正在刷新";
-	[self fetchNews];
-}
-
-- (void)topEndRefresh {
-	if (!self.refreshing) {
-		return;
-	}
-	self.refreshing = NO;
-	_topRefreshLabel.text = @"下滑刷新";
-	
-	[UIView animateWithDuration:0.25 animations:^{
-		UIEdgeInsets inset = self.tableView.contentInset;
-		inset.top -= TopRefreshViewHeight;
-		self.tableView.contentInset = inset;
+	__weak typeof (self) weakSelf = self;
+	self.tableView.px_header = [PXRefreshHeader headerWithRefreshigBlock:^{
+		[weakSelf fetchNews];
 	}];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self.tableView.px_header action:NSSelectorFromString(@"beginRefreshing")];
+	
 }
-
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	[self.tableView.px_header beginRefreshing];
+}
 #pragma mark - methods
 - (void)fetchNews {
     [self.view endEditing:YES];
@@ -143,13 +64,11 @@ CGFloat TopRefreshViewHeight = 80;
             NSLog(@"%@",error);
             return;
         }
-//        NSLog(@"%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
         if (error) {
             NSLog(@"%@",error);
             return;
         }
-//        NSLog(@"%@",dict);
         [weakSelf.newsItems removeAllObjects];
 		[weakSelf.filteredItems removeAllObjects];
         for (int i = 0; i < [dict[@"data"] count]; i++) {
@@ -169,31 +88,31 @@ CGFloat TopRefreshViewHeight = 80;
 	if (self.filterView.filterDate) {
 		datePicker.date = self.filterView.filterDate;
 	}
-	UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"\n\n\n\n\n\n\n\n\n\n\n\n\n\n" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+	UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
 	[alert.view addSubview:datePicker];
 	
 	
 	
 	__weak typeof (self) weakSelf = self;
+	UIAlertAction *all = [UIAlertAction actionWithTitle:@"全部" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+		weakSelf.filterView.filterDate = nil;
+		[weakSelf filterNews];
+	}];
 	UIAlertAction *ok = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 		weakSelf.filterView.filterDate = datePicker.date;
 		[weakSelf filterNews];
 		[weakSelf.tableView reloadData];
 	}];
-	UIAlertAction *all = [UIAlertAction actionWithTitle:@"全部" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-		weakSelf.filterView.filterDate = nil;
-		[weakSelf filterNews];
-	}];
 	UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-	[alert addAction:ok];
 	[alert addAction:all];
+	[alert addAction:ok];
 	[alert addAction:cancel];
-	[self presentViewController:alert animated:YES completion:^() {
-		datePicker.PX_width = 360;
-		datePicker.PX_height = 260;
-		datePicker.PX_y = 2;
-		datePicker.PX_centerX = alert.view.PX_width / 2;
-	}];
+	datePicker.PX_width = alert.view.PX_width;
+	datePicker.PX_height = 300;
+	datePicker.PX_y = 2;
+	datePicker.PX_centerX = alert.view.PX_width / 2;
+	datePicker.autoresizingMask = UIViewAutoresizingFlexibleWidth;//防止datePcker错位
+	[self presentViewController:alert animated:YES completion:nil];
 	
 }
 
@@ -213,7 +132,7 @@ CGFloat TopRefreshViewHeight = 80;
 	__weak typeof (self) weakSelf = self;
 	dispatch_async(dispatch_get_main_queue(), ^{
 		[weakSelf.tableView reloadData];
-		[weakSelf topEndRefresh];
+		[weakSelf.tableView.px_header endRefreshing];
 	});
 }
 
@@ -233,11 +152,7 @@ CGFloat TopRefreshViewHeight = 80;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	SFSafariViewController *safariVc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:self.newsItems[indexPath.row].url]];
 	safariVc.delegate = self;
-//	[self.navigationController pushViewController:safariVc animated:YES];
 	[self presentViewController:safariVc animated:YES completion:nil];
-//	PXDetailViewController *detailViewController = [PXDetailViewController new];
-//	detailViewController.url = self.newsItems[indexPath.row].url;
-//	[self.navigationController pushViewController:detailViewController animated:YES];
 }
 
 #pragma mark - session delegate
@@ -287,8 +202,8 @@ CGFloat TopRefreshViewHeight = 80;
     if (!_filterView) {
         __weak typeof (self) weakSelf = self;
         _filterView = [[PXFilterView alloc] initWithFrame:CGRectMake(0, 0, PXScreenWith, 40)];
-        _filterView.keyWordDidChangeBlock = ^() {
-            [weakSelf scrollsTopRefresh];
+        _filterView.keyWordEnterBlock = ^() {
+			[weakSelf.tableView.px_header beginRefreshing];
         };
 		_filterView.selectDate = ^{
 			[weakSelf selectDate];
@@ -296,4 +211,5 @@ CGFloat TopRefreshViewHeight = 80;
     }
     return _filterView;
 }
+
 @end

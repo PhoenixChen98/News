@@ -55,11 +55,7 @@
     }
     return keyWord;
 }
-//- (NSDate *)filterDate {
-//	NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
-//	[dateFormat setDateFormat:@"yyyy/MM/dd"];//设定时间格式
-//	return [dateFormat dateFromString:self.dateButton.titleLabel.text];
-//}
+
 - (void)setFilterDate:(NSDate *)filterDate {
 	_filterDate = filterDate;
 	if (!filterDate) {
@@ -72,17 +68,14 @@
 	}
 	[self setNeedsLayout];
 }
+
 - (void)clickDate {
 	self.selectDate();
 }
 #pragma mark - TextField Delegate
 
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-//    self.keyWordDidChangeBlock(textField.text);
-}
-
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    self.keyWordDidChangeBlock();
+    self.keyWordEnterBlock();
     return YES;
 }
 @end

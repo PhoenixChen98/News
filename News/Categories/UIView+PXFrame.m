@@ -1,14 +1,14 @@
 //
-//  UIView+Frame.m
+//  UIView+PXFrame.m
 //  BaiSi
 //
 //  Created by Phoenix on 2017/7/10.
 //  Copyright © 2017年 Phoenix. All rights reserved.
 //
 
-#import "UIView+Frame.h"
+#import "UIView+PXFrame.h"
 
-@implementation UIView (Frame)
+@implementation UIView (PXFrame)
 
 - (void)setPX_x:(CGFloat)PX_x {
     CGRect rect = self.frame;

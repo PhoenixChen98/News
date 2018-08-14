@@ -64,7 +64,7 @@
 
 }
 - (void)setTitle:(NSString *)title {
-	[UIView transitionWithView:self.textLabel duration:0.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+	[UIView transitionWithView:self.textLabel duration:0.2 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
 		self.textLabel.text = title;
 		[self setNeedsLayout];
 		[self layoutIfNeeded];
