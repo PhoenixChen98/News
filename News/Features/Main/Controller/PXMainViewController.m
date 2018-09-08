@@ -13,7 +13,6 @@
 #import "PXCalendarView.h"
 #import "PXRefresh.h"
 NSString * const requestUrl = @"https://120.76.205.241/news/baidu?apikey=qI9UW0gCBOdRSyUVjLo1tyHDZe4rwjHYs0tngCXcGQpkc6hT9X7usZq0tTYhUtDn&page=4";
-CGFloat RefreshViewHeight = 80;
 
 @interface PXMainViewController ()<NSURLSessionDelegate, SFSafariViewControllerDelegate>
 @property (strong, nonatomic) NSMutableArray<PXNewsItem *> *newsItems;

@@ -8,12 +8,10 @@
 
 #import "UIImageView+WebImage.h"
 #import "PXWebImageManager.h"
+
+#define ImageManager [PXWebImageManager sharedManager]
+
 @interface UIImageView ()
-@property (class, strong, nonatomic) NSMutableDictionary *imageDateCache;
-@property (class, strong, nonatomic) NSMutableDictionary *operations;
-@property (class, strong, nonatomic) NSOperationQueue *operationQueue;
-@property (class, assign, nonatomic) NSUInteger memCacheSize;
-@property (class, assign, nonatomic) NSUInteger maxMemCacheSize;
 @property (class, strong, nonatomic) PXWebImageManager *imageManager;
 @end
 @implementation UIImageView (WebImage)
@@ -26,7 +24,7 @@
     }
     Class selfClass = [self class];
     //是否已缓存
-	UIImage *image = [selfClass.imageManager imageFromCacheWithUrl:url];
+	UIImage *image = [ImageManager imageFromCacheWithUrl:url];
     if (image) {
         self.image = image;
         return;

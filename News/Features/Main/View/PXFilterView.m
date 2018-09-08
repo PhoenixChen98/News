@@ -70,12 +70,18 @@
 }
 
 - (void)clickDate {
-	self.selectDate();
+	if (self.selectDate) {
+		self.selectDate();
+	}
+	
 }
 #pragma mark - TextField Delegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    self.keyWordEnterBlock();
+	if (self.keyWordEnterBlock) {
+		self.keyWordEnterBlock();
+	}
+	
     return YES;
 }
 @end

@@ -121,4 +121,12 @@
 	
 	return _diskPath;
 }
++ (instancetype)sharedManager {
+	static id instance;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		instance = [self new];
+	});
+	return instance;
+}
 @end

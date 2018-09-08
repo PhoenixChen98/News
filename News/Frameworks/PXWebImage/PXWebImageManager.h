@@ -19,4 +19,5 @@
 - (UIImage *)imageFromMemCacheWithUrl:(NSURL *)url;
 - (UIImage *)imageFromDiskCacheWithUrl:(NSURL *)url;
 - (void)downloadImageWithUrl:(NSURL *)url completion:(void(^)(UIImage *image))completion;
++ (instancetype)sharedManager;
 @end

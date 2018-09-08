@@ -17,7 +17,6 @@ CGFloat TopRefreshViewHeight = 80;
 #pragma mark - 初始化
 - (instancetype)initWithFrame:(CGRect)frame {
 	if (self = [super initWithFrame:frame]) {
-		// 准备工作
 		self.stateLabel = [UILabel new];
 		self.stateLabel.textColor = [UIColor blackColor];
 		self.stateLabel.textAlignment = NSTextAlignmentCenter;
@@ -35,11 +34,7 @@ CGFloat TopRefreshViewHeight = 80;
 }
 - (void)layoutSubviews {
 	[super layoutSubviews];
-//	[self.stateLabel sizeToFit];
 	self.stateLabel.frame = self.bounds;
-//	self.stateLabel.PX_width = self.PX_width;
-//	self.stateLabel.PX_centerX = self.PX_width / 2;
-//	self.stateLabel.PX_centerY = self.PX_height / 2;
 }
 - (void)willMoveToSuperview:(UIView *)newSuperview {
 	[super willMoveToSuperview:newSuperview];
@@ -57,14 +52,8 @@ CGFloat TopRefreshViewHeight = 80;
 		self.frame = CGRectMake(0, -TopRefreshViewHeight, self.scrollView.PX_width, TopRefreshViewHeight);
 		
 		// 设置永远支持垂直弹簧效果
-//		_scrollView.alwaysBounceVertical = YES;
-		// 记录UIScrollView最开始的contentInset
-//		NSString *version = [UIDevice currentDevice].systemVersion;
-//		if (version.doubleValue >= 11.0) {
-//			_scrollViewTopInset = self.scrollView.adjustedContentInset.top;
-//		} else {
-//			_scrollViewTopInset = self.scrollView.contentInset.top;
-//		}
+		_scrollView.alwaysBounceVertical = YES;
+
 		// 添加监听
 		[self addObservers];
 	}
@@ -93,7 +82,10 @@ CGFloat TopRefreshViewHeight = 80;
 		self.scrollView.contentOffset = offset;
 		self.stateLabel.text = @"正在刷新";
 		dispatch_async(dispatch_get_main_queue(), ^{
-			self.refreshingBlock();
+			if (self.refreshingBlock) {
+				self.refreshingBlock();
+			}
+			
 		});
 	} else if (state == PXRefreshStatePulling) {
 		self.stateLabel.text = @"松开立即刷新";
